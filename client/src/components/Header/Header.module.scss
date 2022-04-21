@@ -1,0 +1,9 @@
+@import '../../styles/_colors.scss';
+
+.header {
+  border-bottom: 1px solid $border-color;
+
+  .brand {
+    font-size: 24px;
+  }
+}
