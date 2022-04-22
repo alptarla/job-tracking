@@ -35,6 +35,16 @@ const jobSlice = createSlice({
       state.jobs.push(payload)
       StorageService.set(JOBS_STORAGE_KEY, state.jobs)
     },
+    removeJob(state, { payload }: PayloadAction<IJob>) {
+      state.jobs = state.jobs.filter((job) => job.id !== payload.id)
+      StorageService.set(JOBS_STORAGE_KEY, state.jobs)
+    },
+    updateJob(state, { payload }: PayloadAction<IJob>) {
+      state.jobs = state.jobs.map((job) => {
+        return job.id === payload.id ? payload : job
+      })
+      StorageService.set(JOBS_STORAGE_KEY, state.jobs)
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchPriorities.fulfilled, (state, { payload }) => {
@@ -53,4 +63,4 @@ const jobSlice = createSlice({
 })
 
 export default jobSlice.reducer
-export const { setJobs, setJob } = jobSlice.actions
+export const { setJobs, setJob, removeJob, updateJob } = jobSlice.actions

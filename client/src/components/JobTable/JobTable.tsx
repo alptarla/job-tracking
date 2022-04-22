@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { ReactComponent as EditIcon } from '../../assets/icons/ic-edit.svg'
 import { ReactComponent as TrashIcon } from '../../assets/icons/ic-trash-.svg'
+import { useAppDispatch } from '../../hooks/useStoreHooks'
+import { removeJob, updateJob } from '../../store/slices/jobSlice'
 import { IJob } from '../../types'
 import Badge from '../Badge'
 import { Button } from '../Elements'
@@ -16,6 +18,8 @@ function JobTable({ data }: IProps) {
   const [isShowEditModal, setIsShowEditModal] = useState(false)
   const [isShowRemoveModal, setIsShowRemoveModal] = useState(false)
 
+  const dispatch = useAppDispatch()
+
   const openEditModal = (job: IJob) => () => {
     setIsShowEditModal(true)
     setSelectedJob(job)
@@ -29,11 +33,12 @@ function JobTable({ data }: IProps) {
   const closeRemoveModal = () => setIsShowRemoveModal(false)
 
   const handleRemoveJob = (job: IJob) => {
-    console.log('selectedJob', selectedJob)
+    dispatch(removeJob(job))
+    closeRemoveModal()
   }
 
   const handleEditJob = (job: IJob) => {
-    console.log('job', job)
+    dispatch(updateJob(job))
     closeEditModal()
   }
 
