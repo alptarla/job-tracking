@@ -5,6 +5,7 @@ import { act } from 'react-dom/test-utils'
 import { Provider } from 'react-redux'
 import * as hooks from '../../hooks/useStoreHooks'
 import { store } from '../../store'
+import { mockPriority } from '../../testEnvironments'
 import AddJob from './AddJob'
 
 test('renders correctly', () => {
@@ -21,11 +22,6 @@ test('renders correctly', () => {
 })
 
 test('should callback return the new job data', async () => {
-  const mockPriority = {
-    id: 'p-3',
-    label: 'Regular',
-    color: '#f0ad4e',
-  }
   const mockJobName = 'some job'
 
   const mockOnCreate = jest.fn()

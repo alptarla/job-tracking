@@ -3,6 +3,7 @@ import { ChangeEvent } from 'react'
 import * as Yup from 'yup'
 import { ReactComponent as PlusIcon } from '../../assets/icons/ic-plus.svg'
 import { MAX_JOB_NAME_LENGTH } from '../../constants'
+import makePriorityOptions from '../../helpers/makePriorityOptions'
 import { useAppSelector } from '../../hooks/useStoreHooks'
 import { IJob, IPriority } from '../../types'
 import { Button, Input, Select } from '../Elements'
@@ -34,10 +35,7 @@ function AddJob({ onCreate }: IProps) {
   })
 
   const { priorities } = useAppSelector((state) => state.job)
-  const priorityOptions = priorities.map((priority) => ({
-    label: priority.label,
-    value: priority.id,
-  }))
+  const priorityOptions = makePriorityOptions(priorities)
 
   const handlePriorityChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const id = e.target.value
@@ -62,7 +60,7 @@ function AddJob({ onCreate }: IProps) {
           error={formik.errors.name}
         />
         <Select
-          value={formik.values.priority?.id}
+          value={formik.values.priority?.id || ''}
           onChange={handlePriorityChange}
           placeholder='Choose'
           name='priority'

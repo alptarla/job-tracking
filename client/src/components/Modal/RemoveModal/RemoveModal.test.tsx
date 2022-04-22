@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { mockJobs } from '../../../testEnvoirments'
+import { mockJobs } from '../../../testEnvironments'
 import RemoveModal from './RemoveModal'
 
 const mockJob = mockJobs[0]

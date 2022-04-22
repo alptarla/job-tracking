@@ -30,7 +30,6 @@ function Select({
       {label && <label htmlFor={id}>{label}</label>}
       <select
         id={id}
-        defaultValue=''
         {...rest}
       >
         <option

@@ -4,6 +4,7 @@ import { ReactComponent as TrashIcon } from '../../assets/icons/ic-trash-.svg'
 import { IJob } from '../../types'
 import Badge from '../Badge'
 import { Button } from '../Elements'
+import { EditModal, RemoveModal } from '../Modal'
 import classes from './JobTable.module.scss'
 
 interface IProps {
@@ -11,11 +12,30 @@ interface IProps {
 }
 
 function JobTable({ data }: IProps) {
+  const [selectedJob, setSelectedJob] = useState<IJob | null>(null)
   const [isShowEditModal, setIsShowEditModal] = useState(false)
   const [isShowRemoveModal, setIsShowRemoveModal] = useState(false)
 
-  const changeEditModal = (val: boolean) => () => setIsShowEditModal(val)
-  const changeRemoveModal = (val: boolean) => () => setIsShowRemoveModal(val)
+  const openEditModal = (job: IJob) => () => {
+    setIsShowEditModal(true)
+    setSelectedJob(job)
+  }
+  const closeEditModal = () => setIsShowEditModal(false)
+
+  const openRemoveModal = (job: IJob) => () => {
+    setIsShowRemoveModal(true)
+    setSelectedJob(job)
+  }
+  const closeRemoveModal = () => setIsShowRemoveModal(false)
+
+  const handleRemoveJob = (job: IJob) => {
+    console.log('selectedJob', selectedJob)
+  }
+
+  const handleEditJob = (job: IJob) => {
+    console.log('job', job)
+    closeEditModal()
+  }
 
   const renderBody = () =>
     data.map((item, index) => (
@@ -32,13 +52,13 @@ function JobTable({ data }: IProps) {
             data-testid='edit-button'
             icon={<EditIcon />}
             variant='secondary'
-            onClick={changeEditModal(true)}
+            onClick={openEditModal(item)}
           />
           <Button
             data-testid='remove-button'
             icon={<TrashIcon />}
             variant='secondary'
-            onClick={changeRemoveModal(true)}
+            onClick={openRemoveModal(item)}
           />
         </td>
       </tr>
@@ -56,7 +76,21 @@ function JobTable({ data }: IProps) {
         </thead>
         <tbody className={classes.tableBody}>{renderBody()}</tbody>
       </table>
+
+      <EditModal
+        isShow={isShowEditModal}
+        onCancel={closeEditModal}
+        onSave={handleEditJob}
+        job={selectedJob}
+      />
+      <RemoveModal
+        isShow={isShowRemoveModal}
+        onClose={closeRemoveModal}
+        onRemove={handleRemoveJob}
+        job={selectedJob}
+      />
     </>
   )
 }
+
 export default JobTable
