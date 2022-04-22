@@ -8,14 +8,14 @@ type OptionType = { label: string; value: any }
 interface IProps extends SelectHTMLAttributes<HTMLSelectElement> {
   label?: string
   options?: OptionType[]
-  containerClassNames?: string
+  containerClassName?: string
   error?: string
 }
 
 function Select({
   label,
   options = [],
-  containerClassNames,
+  containerClassName,
   error,
   ...rest
 }: IProps) {
@@ -23,7 +23,7 @@ function Select({
 
   return (
     <div
-      className={classNames(classes.element, containerClassNames, {
+      className={classNames(classes.element, containerClassName, {
         [classes.error]: error,
       })}
     >
@@ -32,12 +32,14 @@ function Select({
         id={id}
         {...rest}
       >
-        <option
-          value=''
-          disabled
-        >
-          {rest.placeholder}
-        </option>
+        {rest.placeholder && (
+          <option
+            value=''
+            disabled
+          >
+            {rest.placeholder}
+          </option>
+        )}
         {options.map((option, index) => (
           <option
             key={index}

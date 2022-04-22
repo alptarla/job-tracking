@@ -67,7 +67,7 @@ function AddJob({ onCreate }: IProps) {
           onChange={handlePriorityChange}
           placeholder='Choose'
           name='priority'
-          containerClassNames={classes.priority}
+          containerClassName={classes.priority}
           label='Job Priority'
           options={priorityOptions}
           error={formik.errors.priority}

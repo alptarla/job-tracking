@@ -2,12 +2,13 @@
 
 .element {
   width: 100%;
+  position: relative;
 
   select {
     width: 100%;
     border: 1px solid $secondary-light-color;
     border-radius: 0.3rem;
-    padding: 0.3rem;
+    padding: 0.5rem;
     outline-color: $primary-color;
   }
   label {
@@ -17,11 +18,12 @@
     margin-bottom: 0.3rem;
   }
   .errorMessage {
+    position: absolute;
+    bottom: -1.2rem;
+    left: 0;
     font-size: 12px;
-    min-height: 1rem;
     font-weight: bold;
     color: $danger-color;
-    margin-top: 0.3rem;
   }
   &.error {
     select {

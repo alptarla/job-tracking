@@ -8,7 +8,11 @@ import JobTable from './JobTable'
 test('should renders correctly', () => {
   render(
     <Provider store={store}>
-      <JobTable data={mockJobs} />
+      <JobTable
+        data={mockJobs}
+        onSearch={jest.fn()}
+        onPriorityChange={jest.fn()}
+      />
     </Provider>
   )
 
@@ -23,7 +27,11 @@ test('should renders correctly', () => {
 test('should open edit modal', () => {
   render(
     <Provider store={store}>
-      <JobTable data={mockJobs} />
+      <JobTable
+        data={mockJobs}
+        onSearch={jest.fn()}
+        onPriorityChange={jest.fn()}
+      />
     </Provider>
   )
 

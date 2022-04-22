@@ -1,38 +1,42 @@
 @import '../../styles/colors';
 
-.table {
-  width: 100%;
+.tableWrapper {
   border: 1px solid $secondary-light-color;
   border-radius: 0.3rem;
-  border-spacing: 0;
+  overflow: hidden;
 
-  .tableHead {
-    background-color: $primary-light-color;
+  .table {
+    width: 100%;
+    border-spacing: 0;
 
-    th {
-      padding: 0.5rem;
-      text-align: left;
-    }
-  }
+    .tableHead {
+      background-color: $primary-light-color;
 
-  .tableBody {
-    td {
-      padding: 0.5rem;
-      width: 70%;
+      th {
+        padding: 0.5rem;
+        text-align: left;
+      }
     }
 
-    .actionCol {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
+    .tableBody {
+      td {
+        padding: 0.5rem;
+        width: 70%;
+      }
+
+      .actionCol {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .jobName {
+        font-size: 14px;
+      }
     }
 
-    .jobName {
-      font-size: 14px;
+    .tableBody tr:nth-child(odd) {
+      background-color: $secondary-light-color;
     }
-  }
-
-  .tableBody tr:nth-child(odd) {
-    background-color: $secondary-light-color;
   }
 }

@@ -45,11 +45,13 @@ function EditModal({ isShow = false, onCancel, onSave, job }: IProps) {
       isShow={isShow}
     >
       <Input
+        containerClassName={classes.input}
         label='Job Name'
         value={job?.name}
         disabled
       />
       <Select
+        containerClassName={classes.input}
         label='Job Priority'
         options={priorityOptions}
         placeholder='Choose'

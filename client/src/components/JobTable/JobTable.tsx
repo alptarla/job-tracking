@@ -7,13 +7,16 @@ import { IJob } from '../../types'
 import Badge from '../Badge'
 import { Button } from '../Elements'
 import { EditModal, RemoveModal } from '../Modal'
+import JobFilter from './JobFilter'
 import classes from './JobTable.module.scss'
 
 interface IProps {
   data: IJob[]
+  onSearch: (search: string) => void
+  onPriorityChange: (priorityId: string) => void
 }
 
-function JobTable({ data }: IProps) {
+function JobTable({ data, onSearch, onPriorityChange }: IProps) {
   const [selectedJob, setSelectedJob] = useState<IJob | null>(null)
   const [isShowEditModal, setIsShowEditModal] = useState(false)
   const [isShowRemoveModal, setIsShowRemoveModal] = useState(false)
@@ -71,16 +74,22 @@ function JobTable({ data }: IProps) {
 
   return (
     <>
-      <table className={classes.table}>
-        <thead className={classes.tableHead}>
-          <tr>
-            <th scope='col'>Name</th>
-            <th scope='col'>Priority</th>
-            <th scope='col'>Action</th>
-          </tr>
-        </thead>
-        <tbody className={classes.tableBody}>{renderBody()}</tbody>
-      </table>
+      <div className={classes.tableWrapper}>
+        <JobFilter
+          onPriorityChange={onPriorityChange}
+          onSearch={onSearch}
+        />
+        <table className={classes.table}>
+          <thead className={classes.tableHead}>
+            <tr>
+              <th scope='col'>Name</th>
+              <th scope='col'>Priority</th>
+              <th scope='col'>Action</th>
+            </tr>
+          </thead>
+          <tbody className={classes.tableBody}>{renderBody()}</tbody>
+        </table>
+      </div>
 
       <EditModal
         isShow={isShowEditModal}
