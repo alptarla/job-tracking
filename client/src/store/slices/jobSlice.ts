@@ -1,22 +1,12 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
-import axios from 'axios'
 import { DEFAULT_ERROR_MESSAGE } from '../../constants'
 import { jobs as initialJobs } from '../../initialData'
-import {
-  IJob,
-  IPrioritiesResponse,
-  IPriority,
-  ResponseStatusType,
-} from '../../types'
+import JobService from '../../services/JobService'
+import { IJob, IPriority, ResponseStatusType } from '../../types'
 
 export const fetchPriorities = createAsyncThunk(
   'job/fetchPriorities',
-  async () => {
-    const { data } = await axios.get<IPrioritiesResponse>(
-      `${process.env.REACT_APP_API_BASE_URL}/priorities`
-    )
-    return data.priorities
-  }
+  async () => JobService.fetchJobs()
 )
 
 interface IInitialState {
