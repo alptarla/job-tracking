@@ -1,17 +1,22 @@
 import { nanoid } from 'nanoid'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import AddJob from './components/AddJob'
 import Header from './components/Header'
 import JobTable from './components/JobTable'
 import { DEFAULT_FILTER_PRIORITY, JOBS_STORAGE_KEY } from './constants'
 import { useAppDispatch, useAppSelector } from './hooks/useStoreHooks'
 import StorageService from './services/StorageService'
-import { fetchPriorities, setJob, setJobs } from './store/slices/jobSlice'
-import { IJob } from './types'
+import {
+  fetchPriorities,
+  filterJobs,
+  setJob,
+  setJobs,
+} from './store/slices/jobSlice'
+import { IJob, JobFilterType } from './types'
 
 function App() {
   const { jobs } = useAppSelector((state) => state.job)
-  const [filters, setFilters] = useState({
+  const [filters, setFilters] = useState<JobFilterType>({
     search: '',
     priorityId: DEFAULT_FILTER_PRIORITY,
   })
@@ -28,26 +33,15 @@ function App() {
     dispatch(setJobs(storedJobs))
   }, [dispatch])
 
-  const jobsTableData = useMemo(() => {
-    let data: IJob[] = []
-
-    if (filters.priorityId === DEFAULT_FILTER_PRIORITY) {
-      data = jobs
-    } else {
-      data = jobs.filter((job) => job.priority.id === filters.priorityId)
-    }
-
-    const regex = new RegExp(filters.search, 'i')
-    data = data.filter((job) => job.name.match(regex))
-
-    return data
-  }, [filters, jobs])
+  useEffect(() => {
+    dispatch(filterJobs(filters))
+  }, [filters, dispatch])
 
   const handleJobCreate = (job: Omit<IJob, 'id'>) => {
     dispatch(setJob({ ...job, id: nanoid() }))
   }
 
-  const handleSearch = (search: string) => {
+  const handleSearchChange = (search: string) => {
     setFilters({ ...filters, search })
   }
 
@@ -61,8 +55,8 @@ function App() {
       <main className='container'>
         <AddJob onCreate={handleJobCreate} />
         <JobTable
-          data={jobsTableData}
-          onSearch={handleSearch}
+          data={jobs}
+          onSearch={handleSearchChange}
           onPriorityChange={handlePriorityChange}
         />
       </main>

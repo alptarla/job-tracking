@@ -1,9 +1,13 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { DEFAULT_ERROR_MESSAGE, JOBS_STORAGE_KEY } from '../../constants'
+import {
+  DEFAULT_ERROR_MESSAGE,
+  DEFAULT_FILTER_PRIORITY,
+  JOBS_STORAGE_KEY,
+} from '../../constants'
 import { jobs as initialJobs } from '../../initialData'
 import JobService from '../../services/JobService'
 import StorageService from '../../services/StorageService'
-import { IJob, IPriority, ResponseStatusType } from '../../types'
+import { IJob, IPriority, JobFilterType, ResponseStatusType } from '../../types'
 
 export const fetchPriorities = createAsyncThunk(
   'job/fetchPriorities',
@@ -45,6 +49,21 @@ const jobSlice = createSlice({
       })
       StorageService.set(JOBS_STORAGE_KEY, state.jobs)
     },
+    filterJobs(state, { payload }: PayloadAction<JobFilterType>) {
+      const { priorityId, search } = payload
+
+      let data = StorageService.get<IJob[]>(JOBS_STORAGE_KEY)
+      if (!data) return
+
+      if (priorityId !== DEFAULT_FILTER_PRIORITY) {
+        data = data.filter((job) => job.priority.id === priorityId)
+      }
+
+      const regex = new RegExp(search, 'i')
+      data = data.filter((job) => job.name.match(regex))
+
+      state.jobs = data
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchPriorities.fulfilled, (state, { payload }) => {
@@ -63,4 +82,5 @@ const jobSlice = createSlice({
 })
 
 export default jobSlice.reducer
-export const { setJobs, setJob, removeJob, updateJob } = jobSlice.actions
+export const { setJobs, setJob, removeJob, updateJob, filterJobs } =
+  jobSlice.actions
