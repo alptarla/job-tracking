@@ -1,0 +1,32 @@
+@import '../../../styles/colors';
+
+.element {
+  width: 100%;
+
+  select {
+    width: 100%;
+    border: 1px solid $secondary-light-color;
+    border-radius: 0.3rem;
+    padding: 0.3rem;
+    outline-color: $primary-color;
+  }
+  label {
+    display: block;
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 0.3rem;
+  }
+  .errorMessage {
+    font-size: 12px;
+    min-height: 1rem;
+    font-weight: bold;
+    color: $danger-color;
+    margin-top: 0.3rem;
+  }
+  &.error {
+    select {
+      border-color: $danger-color !important;
+      outline-color: $danger-color !important;
+    }
+  }
+}

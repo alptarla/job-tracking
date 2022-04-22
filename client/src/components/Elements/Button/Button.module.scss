@@ -1,0 +1,49 @@
+@import '../../../styles/colors';
+
+.button {
+  width: 100%;
+  border: none;
+  border-radius: 0.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: opacity 0.1s ease-in;
+
+  span {
+    font-weight: bold;
+  }
+  svg {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+  &:hover {
+    opacity: 0.8;
+  }
+  &.primary {
+    background-color: $primary-color;
+
+    span,
+    svg {
+      color: white;
+    }
+  }
+  &.secondary {
+    background-color: $secondary-color;
+
+    span,
+    svg {
+      color: #333;
+    }
+  }
+  &.danger {
+    background-color: $danger-color;
+
+    span,
+    svg {
+      color: white;
+    }
+  }
+}

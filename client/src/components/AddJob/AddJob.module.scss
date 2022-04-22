@@ -1,0 +1,24 @@
+@import '../../styles/_colors.scss';
+
+.title {
+  font-size: 14px;
+}
+
+.formWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+
+  .jobName {
+    flex: 4;
+  }
+
+  .priority {
+    flex: 2;
+  }
+
+  .button {
+    flex: 1;
+  }
+}
