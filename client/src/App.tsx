@@ -4,7 +4,8 @@ import AddJob from './components/AddJob'
 import Header from './components/Header'
 import JobTable from './components/JobTable'
 import { useAppDispatch } from './hooks/useStoreHooks'
-import { fetchPriorities } from './store/slices/jobSlice'
+import StorageService from './services/StorageService'
+import { fetchPriorities, setJobs } from './store/slices/jobSlice'
 import { IJob } from './types'
 
 const data: IJob[] = [
@@ -42,6 +43,12 @@ function App() {
 
   useEffect(() => {
     dispatch(fetchPriorities())
+  }, [dispatch])
+
+  useEffect(() => {
+    const storedJobs = StorageService.get<IJob[]>('jobs')
+    if (!storedJobs) return
+    dispatch(setJobs(storedJobs))
   }, [dispatch])
 
   const handleJobCreate = (job: Omit<IJob, 'id'>) => {

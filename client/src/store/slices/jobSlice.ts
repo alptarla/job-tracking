@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { DEFAULT_ERROR_MESSAGE } from '../../constants'
 import {
@@ -35,7 +35,11 @@ const initialState: IInitialState = {
 const jobSlice = createSlice({
   name: 'job',
   initialState,
-  reducers: {},
+  reducers: {
+    setJobs(state, { payload }: PayloadAction<IJob[]>) {
+      state.jobs = payload
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchPriorities.fulfilled, (state, { payload }) => {
       state.status = 'idle'
@@ -53,3 +57,4 @@ const jobSlice = createSlice({
 })
 
 export default jobSlice.reducer
+export const { setJobs } = jobSlice.actions
