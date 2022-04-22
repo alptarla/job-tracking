@@ -15,3 +15,5 @@ export interface IPrioritiesResponse {
 }
 
 export type ResponseStatusType = 'idle' | 'loading' | 'error'
+
+export type JobFilterType = { search: string; priorityId: string }

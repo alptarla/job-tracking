@@ -48,6 +48,7 @@ function JobFilter({ onSearch, onPriorityChange }: IProps) {
         onChange={handleSearchChange}
       />
       <Select
+        data-testid='priority-select'
         containerClassName={classes.priority}
         options={priorityOptions}
         value={priority}
