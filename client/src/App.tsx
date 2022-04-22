@@ -6,6 +6,7 @@ import JobTable from './components/JobTable'
 import { DEFAULT_FILTER_PRIORITY, JOBS_STORAGE_KEY } from './constants'
 import { useAppDispatch, useAppSelector } from './hooks/useStoreHooks'
 import StorageService from './services/StorageService'
+import { selectJobs } from './store'
 import {
   fetchPriorities,
   filterJobs,
@@ -15,7 +16,7 @@ import {
 import { IJob, JobFilterType } from './types'
 
 function App() {
-  const { jobs } = useAppSelector((state) => state.job)
+  const jobs = useAppSelector(selectJobs)
   const [filters, setFilters] = useState<JobFilterType>({
     search: '',
     priorityId: DEFAULT_FILTER_PRIORITY,
@@ -30,6 +31,7 @@ function App() {
   useEffect(() => {
     const storedJobs = StorageService.get<IJob[]>(JOBS_STORAGE_KEY)
     if (!storedJobs) return
+
     dispatch(setJobs(storedJobs))
   }, [dispatch])
 

@@ -4,7 +4,7 @@ export const jobs = [
     name: 'Adaylarla ilgili teknik bir odev hazirlamam gerekiyor',
     priority: {
       id: 'p-1',
-      label: 'Ungent',
+      label: 'Urgent',
       color: '#B20600',
     },
   },
