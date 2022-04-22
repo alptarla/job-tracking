@@ -3,9 +3,10 @@ import { useEffect } from 'react'
 import AddJob from './components/AddJob'
 import Header from './components/Header'
 import JobTable from './components/JobTable'
+import { JOBS_STORAGE_KEY } from './constants'
 import { useAppDispatch, useAppSelector } from './hooks/useStoreHooks'
 import StorageService from './services/StorageService'
-import { fetchPriorities, setJobs } from './store/slices/jobSlice'
+import { fetchPriorities, setJob, setJobs } from './store/slices/jobSlice'
 import { IJob } from './types'
 
 function App() {
@@ -17,13 +18,13 @@ function App() {
   }, [dispatch])
 
   useEffect(() => {
-    const storedJobs = StorageService.get<IJob[]>('jobs')
+    const storedJobs = StorageService.get<IJob[]>(JOBS_STORAGE_KEY)
     if (!storedJobs) return
     dispatch(setJobs(storedJobs))
   }, [dispatch])
 
   const handleJobCreate = (job: Omit<IJob, 'id'>) => {
-    console.log('job', { ...job, id: nanoid() })
+    dispatch(setJob({ ...job, id: nanoid() }))
   }
 
   return (

@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { DEFAULT_ERROR_MESSAGE } from '../../constants'
+import { DEFAULT_ERROR_MESSAGE, JOBS_STORAGE_KEY } from '../../constants'
 import { jobs as initialJobs } from '../../initialData'
 import JobService from '../../services/JobService'
+import StorageService from '../../services/StorageService'
 import { IJob, IPriority, ResponseStatusType } from '../../types'
 
 export const fetchPriorities = createAsyncThunk(
@@ -30,6 +31,10 @@ const jobSlice = createSlice({
     setJobs(state, { payload }: PayloadAction<IJob[]>) {
       state.jobs = payload
     },
+    setJob(state, { payload }: PayloadAction<IJob>) {
+      state.jobs.push(payload)
+      StorageService.set(JOBS_STORAGE_KEY, state.jobs)
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchPriorities.fulfilled, (state, { payload }) => {
@@ -48,4 +53,4 @@ const jobSlice = createSlice({
 })
 
 export default jobSlice.reducer
-export const { setJobs } = jobSlice.actions
+export const { setJobs, setJob } = jobSlice.actions
