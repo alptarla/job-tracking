@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { DEFAULT_ERROR_MESSAGE } from '../../constants'
+import { jobs as initialJobs } from '../../initialData'
 import {
   IJob,
   IPrioritiesResponse,
@@ -26,7 +27,7 @@ interface IInitialState {
 }
 
 const initialState: IInitialState = {
-  jobs: [],
+  jobs: initialJobs,
   priorities: [],
   status: 'idle',
   error: null,
