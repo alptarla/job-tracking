@@ -9,7 +9,7 @@ import { Button, Input, Select } from '../Elements'
 import classes from './AddJob.module.scss'
 
 interface IProps {
-  onCreate: (job: IJob) => void
+  onCreate: (job: Omit<IJob, 'id'>) => void
 }
 
 interface IJobFormValues {

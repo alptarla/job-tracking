@@ -1,0 +1,38 @@
+@import '../../styles/colors';
+
+.table {
+  width: 100%;
+  border: 1px solid $secondary-light-color;
+  border-radius: 0.3rem;
+  border-spacing: 0;
+
+  .tableHead {
+    background-color: $primary-light-color;
+
+    th {
+      padding: 0.5rem;
+      text-align: left;
+    }
+  }
+
+  .tableBody {
+    td {
+      padding: 0.5rem;
+      width: 70%;
+    }
+
+    .actionCol {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .jobName {
+      font-size: 14px;
+    }
+  }
+
+  .tableBody tr:nth-child(odd) {
+    background-color: $secondary-light-color;
+  }
+}
