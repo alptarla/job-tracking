@@ -9,11 +9,11 @@ export const priorities: IPriority[] = [
   {
     id: 'p-2',
     label: 'Important',
-    color: '#FF6363',
+    color: '#d9534f',
   },
   {
     id: 'p-3',
     label: 'Regular',
-    color: '#F8B400',
+    color: '#f0ad4e',
   },
 ]
