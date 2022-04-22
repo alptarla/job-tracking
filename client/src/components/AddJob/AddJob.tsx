@@ -47,7 +47,10 @@ function AddJob({ onCreate }: IProps) {
   }
 
   return (
-    <form onSubmit={formik.handleSubmit}>
+    <form
+      onSubmit={formik.handleSubmit}
+      className={classes.form}
+    >
       <h4 className={classes.title}>Create New Job</h4>
       <div className={classes.formWrapper}>
         <Input
