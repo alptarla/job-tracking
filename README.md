@@ -1,4 +1,4 @@
-Job Tracking - Rise Technology case study
+Job Tracking
 
 ## Stack
 
